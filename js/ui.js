@@ -6,7 +6,7 @@ const UIRenderer = (() => {
   // Option Datasets
   const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'Other'];
   const religions = ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Jain', 'Buddhist', 'others'];
-  const classes = ['+1 Science', '+1 Commerce', '+1 Humanities', '+2 Science', '+2 Commerce', '+2 Humanities', 'UG 1st Year', 'UG 2nd Year', 'UG 3rd Year', 'PG 1st Year', 'PG 2nd Year'];
+  const classes = ['B1', 'CS1', 'C1', 'H1', 'B2', 'CS2', 'C2', 'H2'];
   const divisions = ['A', 'B', 'C', 'D', 'E', 'F', 'NSS Batch 1', 'NSS Batch 2'];
   const nssBatches = ['2024-2026', '2025-2027', '2026-2028'];
   const genders = [
@@ -24,12 +24,17 @@ const UIRenderer = (() => {
     renderDropdownOptions('bloodGroup', bloodGroups, 'Choose Blood Group');
     renderDropdownOptions('religion', religions, 'Choose Religion');
     renderDropdownOptions('class', classes, 'Select Class');
-    renderDropdownOptions('division', divisions, 'Select Division');
+    // renderDropdownOptions('division', divisions, 'Select Division');
     renderDistrictOptions();
     setupCharacterCounters();
     setupConditionalFields();
     setupThemeToggle();
     setupWhatsAppCopy();
+
+    // Close custom dropdowns on outside click
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+    });
   }
 
 
@@ -40,6 +45,8 @@ const UIRenderer = (() => {
 
     select.innerHTML = `<option value="" disabled selected>${placeholder}</option>` +
       options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+      
+    buildCustomDropdown(select);
   }
 
   function renderDistrictOptions() {
@@ -49,6 +56,94 @@ const UIRenderer = (() => {
     const districts = window.DistrictData.getDistricts();
     districtSelect.innerHTML = `<option value="" disabled selected>Select District</option>` +
       districts.map(d => `<option value="${d}">${d}</option>`).join('');
+      
+    buildCustomDropdown(districtSelect);
+  }
+
+  function buildCustomDropdown(select) {
+    if (select.classList.contains('customized')) {
+      const oldWrapper = select.nextElementSibling;
+      if (oldWrapper && oldWrapper.classList.contains('custom-select-wrapper')) {
+        oldWrapper.remove();
+      }
+    }
+    
+    select.classList.add('customized');
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'custom-select-wrapper';
+    
+    const trigger = document.createElement('div');
+    trigger.className = 'custom-select-trigger';
+    
+    const list = document.createElement('div');
+    list.className = 'custom-options-list';
+    
+    let selectedText = '';
+    const options = Array.from(select.options);
+    
+    options.forEach(opt => {
+      const customOpt = document.createElement('div');
+      customOpt.className = 'custom-option';
+      if (opt.disabled) customOpt.classList.add('disabled');
+      if (opt.selected) {
+        customOpt.classList.add('selected');
+        selectedText = opt.textContent;
+      }
+      customOpt.textContent = opt.textContent;
+      customOpt.dataset.value = opt.value;
+      
+      customOpt.addEventListener('click', (e) => {
+        if (opt.disabled) {
+           e.stopPropagation();
+           return;
+        }
+        
+        select.value = opt.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        trigger.textContent = opt.textContent;
+        wrapper.querySelectorAll('.custom-option').forEach(el => el.classList.remove('selected'));
+        customOpt.classList.add('selected');
+        
+        wrapper.classList.remove('open');
+        e.stopPropagation();
+      });
+      
+      list.appendChild(customOpt);
+    });
+    
+    trigger.textContent = selectedText;
+    
+    trigger.addEventListener('click', (e) => {
+      const isOpen = wrapper.classList.contains('open');
+      document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+      if (!isOpen) wrapper.classList.add('open');
+      e.stopPropagation();
+    });
+    
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(list);
+    
+    select.parentNode.insertBefore(wrapper, select.nextSibling);
+    
+    // Sync from native select to custom dropdown if it gets updated elsewhere (like draft restore)
+    if (!select.dataset.syncBound) {
+      select.dataset.syncBound = 'true';
+      select.addEventListener('change', () => {
+        const selectedOpt = Array.from(select.options).find(o => o.selected || o.value === select.value);
+        if (selectedOpt) {
+           trigger.textContent = selectedOpt.textContent;
+           wrapper.querySelectorAll('.custom-option').forEach(el => {
+             if (el.dataset.value === selectedOpt.value) {
+               el.classList.add('selected');
+             } else {
+               el.classList.remove('selected');
+             }
+           });
+        }
+      });
+    }
   }
 
   function setupCharacterCounters() {
@@ -131,8 +226,8 @@ const UIRenderer = (() => {
     const themeIcon = document.getElementById('theme-icon');
     if (themeIcon) {
       themeIcon.innerHTML = theme === 'dark'
-        ? '<path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.02-.39-1.41 0z"/>'
-        : '<path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>';
+        ? '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.02-.39-1.41 0z"/></svg>'
+        : '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>';
     }
   }
 

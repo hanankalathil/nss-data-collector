@@ -38,7 +38,7 @@ const SubmitEngine = (() => {
         title: 'Personal Details',
         items: [
           { label: 'Full Name', value: data.fullName },
-          { label: 'Date of Birth', value: data.dob },
+          { label: 'Date of Birth', value: data.dob ? data.dob.split('-').reverse().join('/') : '' },
           { label: 'Calculated Age', value: data.age ? `${data.age} Years` : 'N/A' },
           { label: 'Blood Group', value: data.bloodGroup === 'Other' ? `Other (${data.customBloodGroup || ''})` : data.bloodGroup },
           { label: 'Religion', value: data.religion === 'others' ? `Other (${data.customReligion || ''})` : data.religion },
@@ -162,6 +162,9 @@ const SubmitEngine = (() => {
       if (key === 'aadhaar') {
         val = window.Verhoeff ? window.Verhoeff.unformat(val) : val;
       }
+      if (key === 'dob' && val) {
+        val = val.split('-').reverse().join('/');
+      }
       formData.append(entryId, val);
     }
 
@@ -214,6 +217,7 @@ const SubmitEngine = (() => {
 
     modal.classList.remove('hidden');
     modal.classList.add('animate-fade-in');
+    document.body.classList.add('no-scroll');
 
     // Trigger Canvas Confetti
     launchConfetti();

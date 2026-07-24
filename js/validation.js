@@ -14,7 +14,7 @@ const ValidationEngine = (() => {
     if (!/^[a-zA-Z\s.'-]+$/.test(trimmed)) return { valid: false, message: 'Name must contain only letters.' };
     
     const words = trimmed.split(/\s+/).filter(Boolean);
-    if (words.length < 2) return { valid: false, message: 'Please enter at least 2 words (e.g., First Last).' };
+    if (words.length < 2) return { valid: false, message: 'Please enter at least 2 words (e.g., hanan kalathil).' };
 
     return { valid: true, message: 'Valid Name' };
   }
@@ -27,12 +27,12 @@ const ValidationEngine = (() => {
     const str = String(dobStr || '').trim();
     if (!str) return { valid: false, message: 'Date of Birth is required.', age: null };
 
-    // Strict regex check for DD/MM/YYYY
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(str)) {
-      return { valid: false, message: 'Date must be in DD/MM/YYYY format (e.g., 15/07/2008).', age: null };
+    // Strict regex check for YYYY-MM-DD
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) {
+      return { valid: false, message: 'Please select a valid date.', age: null };
     }
 
-    const [dayStr, monthStr, yearStr] = str.split('/');
+    const [yearStr, monthStr, dayStr] = str.split('-');
     const day = parseInt(dayStr, 10);
     const month = parseInt(monthStr, 10);
     const year = parseInt(yearStr, 10);

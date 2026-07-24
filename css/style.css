@@ -2,50 +2,54 @@
    MAIN CORE CSS & GLASSMORPHISM DESIGN SYSTEM
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  /* Light Mode Color System */
-  --bg-color: #f4f6fc;
-  --bg-gradient: radial-gradient(circle at 50% -20%, #e0e7ff 0%, #f4f6fc 70%);
-  --surface-glass: rgba(255, 255, 255, 0.78);
-  --surface-glass-border: rgba(255, 255, 255, 0.6);
-  --card-shadow: 0 12px 32px rgba(31, 38, 135, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+  /* Light Mode Color System - Brutalism */
+  --bg-color: #f4f4f0;
+  --bg-gradient: none;
+  --surface-glass: #ffffff;
+  --surface-glass-border: #000000;
+  --card-shadow: 4px 4px 0px #000000;
   
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
+  --text-main: #000000;
+  --text-muted: #333333;
+  --text-subtle: #666666;
 
-  --input-bg: rgba(255, 255, 255, 0.85);
-  --input-border: #e2e8f0;
-  --input-focus-border: #4f46e5;
-  --input-focus-glow: rgba(79, 70, 229, 0.2);
+  --input-bg: #ffffff;
+  --input-border: #000000;
+  --input-focus-border: #000000;
+  --input-focus-glow: transparent;
 
-  --primary-accent: #4f46e5;
-  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-  --primary-hover: #4338ca;
+  --primary-accent: #ccff00; /* Neon yellow */
+  --primary-gradient: none;
+  --primary-hover: #b3e600;
 
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --danger-color: #ef4444;
+  --secondary-accent: #ff00ff; /* Hot pink */
+
+  --success-color: #00ff00;
+  --warning-color: #ffff00;
+  --danger-color: #ff0000;
   
-  --pill-bg: rgba(226, 232, 240, 0.6);
-  --pill-active-bg: #4f46e5;
+  --pill-bg: #ffffff;
+  --pill-active-bg: var(--secondary-accent);
   --pill-active-text: #ffffff;
 
-  --toast-bg: rgba(255, 255, 255, 0.95);
-  --toast-text: #1e293b;
+  --toast-bg: #ffffff;
+  --toast-text: #000000;
 
-  --badge-bg: rgba(79, 70, 229, 0.1);
-  --badge-text: #4f46e5;
+  --badge-bg: var(--primary-accent);
+  --badge-text: #000000;
 
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 10px;
-  --radius-pill: 9999px;
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+  --radius-pill: 0px;
   
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --border-width: 3px;
+  
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Space Mono', monospace;
 }
 
 /* Reset & Global Elements */
@@ -54,6 +58,10 @@
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+}
+
+.no-scroll {
+  overflow: hidden !important;
 }
 
 html, body {
@@ -72,9 +80,7 @@ html, body {
 /* Glassmorphism Card Container */
 .glass-card {
   background: var(--surface-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--surface-glass-border);
+  border: var(--border-width) solid var(--surface-glass-border);
   box-shadow: var(--card-shadow);
   border-radius: var(--radius-lg);
   padding: 2rem;
@@ -86,10 +92,8 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--input-border);
+  background: #ffffff;
+  border-bottom: var(--border-width) solid var(--input-border);
   transition: all 0.3s ease;
 }
 
@@ -112,15 +116,16 @@ html, body {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--primary-gradient);
-  color: #fff;
+  background: var(--primary-accent);
+  border: var(--border-width) solid #000000;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.1rem;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 2px 2px 0px #000000;
 }
 
 .nss-brand-text h1 {
@@ -179,12 +184,10 @@ html, body {
   top: 61px;
   z-index: 95;
   background: var(--surface-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-md);
   padding: 1rem 1.25rem;
   margin-bottom: 1.5rem;
-  border: 1px solid var(--surface-glass-border);
+  border: var(--border-width) solid var(--surface-glass-border);
   box-shadow: var(--card-shadow);
 }
 
@@ -205,6 +208,7 @@ html, body {
 .step-badge-pill {
   background: var(--badge-bg);
   color: var(--badge-text);
+  border: var(--border-width) solid #000000;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
@@ -224,7 +228,8 @@ html, body {
 .wizard-progress-fill {
   height: 100%;
   width: 14.28%;
-  background: var(--primary-gradient);
+  background: var(--secondary-accent);
+  border-right: var(--border-width) solid #000000;
   border-radius: var(--radius-pill);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -262,12 +267,14 @@ html, body {
 .step-pill.active {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  border-color: #000000;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 .step-pill.completed {
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--success-color);
+  background: var(--primary-accent);
+  color: #000000;
+  border-color: #000000;
 }
 
 /* Form Section Headers */
@@ -345,12 +352,13 @@ html, body {
   font-size: 0.95rem;
   color: var(--text-main);
   background: var(--input-bg);
-  border: 1px solid var(--input-border);
+  border: var(--border-width) solid var(--input-border);
   border-radius: var(--radius-md);
   outline: none;
   transition: all 0.25s ease;
   appearance: none;
   -webkit-appearance: none;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 textarea.input-control {
@@ -360,7 +368,7 @@ textarea.input-control {
 
 .input-control:focus {
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3.5px var(--input-focus-glow);
+  box-shadow: 4px 4px 0px #000000;
   background: var(--surface-glass);
 }
 
@@ -432,19 +440,20 @@ textarea.input-control {
   gap: 0.5rem;
   padding: 0.85rem;
   background: var(--input-bg);
-  border: 1px solid var(--input-border);
+  border: var(--border-width) solid var(--input-border);
   border-radius: var(--radius-md);
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-main);
   transition: all 0.25s ease;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 .radio-pill-card input[type="radio"]:checked + .pill-content {
   background: var(--primary-accent);
-  color: #ffffff;
-  border-color: var(--primary-accent);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  color: #000000;
+  border-color: #000000;
+  box-shadow: 4px 4px 0px #000000;
 }
 
 
@@ -502,30 +511,32 @@ textarea.input-control {
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;
-  border: none;
+  border: var(--border-width) solid #000000;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 3px 3px 0px #000000;
 }
 
 .btn-secondary {
   background: var(--input-bg);
   color: var(--text-main);
-  border: 1px solid var(--input-border);
 }
 
 .btn-secondary:hover {
   background: var(--pill-bg);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000000;
 }
 
 .btn-primary {
-  background: var(--primary-gradient);
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
+  background: var(--primary-accent);
+  color: #000000;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.45);
+  background: var(--primary-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #000000;
 }
 
 .btn-icon {
@@ -699,6 +710,8 @@ textarea.input-control {
   width: 100%;
   text-align: center;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .checkmark-badge-wrapper {
@@ -746,6 +759,9 @@ textarea.input-control {
 
 .receipt-val {
   font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+  max-width: 65%;
 }
 
 .success-actions {
@@ -755,3 +771,120 @@ textarea.input-control {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+/* Custom Brutalist Select Dropdown */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Hide native select when custom is active */
+select.input-control.customized {
+  display: none !important;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: var(--input-bg);
+  border: var(--border-width) solid var(--input-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.custom-select-trigger::after {
+  content: "▼";
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.custom-select-wrapper.open .custom-select-trigger {
+  border-color: var(--input-focus-border);
+  box-shadow: 4px 4px 0px #000000;
+  background: var(--surface-glass);
+}
+
+.custom-select-wrapper.open .custom-select-trigger::after {
+  transform: rotate(180deg);
+}
+
+.custom-options-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--surface-glass);
+  border: var(--border-width) solid var(--surface-glass-border);
+  box-shadow: 4px 4px 0px #000000;
+  border-radius: var(--radius-md);
+  margin-top: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.custom-select-wrapper.open .custom-options-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--input-border);
+  transition: background-color 0.2s ease;
+}
+
+.custom-option.disabled {
+  color: var(--text-subtle);
+  cursor: not-allowed;
+  background-color: var(--input-bg);
+}
+
+.custom-option:last-child {
+  border-bottom: none;
+}
+
+.custom-option:not(.disabled):hover {
+  background-color: #cccccc;
+  color: var(--text-main);
+}
+
+.custom-option.selected {
+  background-color: var(--primary-accent);
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Custom Scrollbar for Brutalism */
+.custom-options-list::-webkit-scrollbar {
+  width: 12px;
+}
+.custom-options-list::-webkit-scrollbar-track {
+  background: var(--surface-glass);
+  border-left: var(--border-width) solid var(--input-border);
+}
+.custom-options-list::-webkit-scrollbar-thumb {
+  background: var(--text-main);
+  border: 2px solid var(--surface-glass);
+}
+.custom-options-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+

@@ -115,11 +115,13 @@ const AppController = (() => {
     function openAadhaarModal() {
       confirmInput.value = '';
       modal.classList.remove('hidden');
+      document.body.classList.add('no-scroll');
       setTimeout(() => confirmInput.focus(), 100);
     }
 
     function closeAadhaarModal() {
       modal.classList.add('hidden');
+      document.body.classList.remove('no-scroll');
     }
   }
 
@@ -136,16 +138,6 @@ const AppController = (() => {
       el.value = el.value.replace(/\D/g, '').slice(0, 10);
     } else if (id === 'pin') {
       el.value = el.value.replace(/\D/g, '').slice(0, 6);
-    } else if (id === 'dob') {
-      // Auto format DD/MM/YYYY slash insertion
-      let v = el.value.replace(/\D/g, '').slice(0, 8);
-      if (v.length >= 5) {
-        el.value = `${v.slice(0, 2)}/${v.slice(2, 4)}/${v.slice(4, 8)}`;
-      } else if (v.length >= 3) {
-        el.value = `${v.slice(0, 2)}/${v.slice(2, 4)}`;
-      } else {
-        el.value = v;
-      }
     }
   }
 
@@ -291,9 +283,14 @@ const AppController = (() => {
     // Populate inputs
     Object.keys(draft).forEach(key => {
       const el = document.getElementById(key);
-      if (el && draft[key] !== undefined && draft[key] !== null) {
+      if (el && draft[key] !== undefined && draft[key] !== null && draft[key] !== '') {
         el.value = draft[key];
-        el.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // Only trigger change event for selects to update UI (like 'Other' blood group)
+        // to prevent auto-validation of text inputs on page load
+        if (el.tagName === 'SELECT') {
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
       }
     });
 

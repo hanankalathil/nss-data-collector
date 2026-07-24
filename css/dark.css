@@ -1,59 +1,61 @@
 /* ==========================================================================
-   DARK MODE COLOR TOKENS & OVERRIDES
+   DARK MODE COLOR TOKENS & OVERRIDES - BRUTALISM
    ========================================================================== */
 
 [data-theme="dark"] {
-  --bg-color: #0b0f19;
-  --bg-gradient: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #0b0f19 70%);
-  --surface-glass: rgba(17, 24, 39, 0.7);
-  --surface-glass-border: rgba(255, 255, 255, 0.1);
-  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+  --bg-color: #000000;
+  --bg-gradient: none;
+  --surface-glass: #000000;
+  --surface-glass-border: #ffffff;
+  --card-shadow: 4px 4px 0px #ffffff;
   
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --text-subtle: #6b7280;
+  --text-main: #ffffff;
+  --text-muted: #cccccc;
+  --text-subtle: #999999;
 
-  --input-bg: rgba(31, 41, 55, 0.6);
-  --input-border: rgba(255, 255, 255, 0.12);
-  --input-focus-border: #6366f1;
-  --input-focus-glow: rgba(99, 102, 241, 0.3);
+  --input-bg: #000000;
+  --input-border: #ffffff;
+  --input-focus-border: #ffffff;
+  --input-focus-glow: transparent;
 
-  --primary-accent: #6366f1;
-  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-  --primary-hover: #4f46e5;
+  --primary-accent: #ff00ff; /* Hot pink for dark mode */
+  --primary-gradient: none;
+  --primary-hover: #e600e6;
   
-  --pill-bg: rgba(31, 41, 55, 0.5);
-  --pill-active-bg: #6366f1;
-  --pill-active-text: #ffffff;
+  --secondary-accent: #ccff00; /* Neon yellow */
 
-  --toast-bg: rgba(17, 24, 39, 0.95);
-  --toast-text: #f3f4f6;
+  --pill-bg: #000000;
+  --pill-active-bg: var(--secondary-accent);
+  --pill-active-text: #000000;
 
-  --badge-bg: rgba(99, 102, 241, 0.2);
-  --badge-text: #a5b4fc;
+  --toast-bg: #000000;
+  --toast-text: #ffffff;
+
+  --badge-bg: var(--primary-accent);
+  --badge-text: #000000;
 }
 
-/* Subtle Dark Mode Glow Accents */
+/* Subtle Dark Mode Accents removed for brutalism */
 [data-theme="dark"] .glass-card {
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 4px 0px #ffffff;
 }
 
 [data-theme="dark"] .top-nav {
-  background: rgba(11, 15, 25, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: #000000;
+  border-bottom-color: #ffffff;
 }
 
 [data-theme="dark"] .wizard-header-sticky {
-  background: rgba(11, 15, 25, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: #000000;
+  border-color: #ffffff;
 }
 
 [data-theme="dark"] select option {
-  background-color: #111827;
-  color: #f3f4f6;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 [data-theme="dark"] .review-section-card {
-  background: rgba(31, 41, 55, 0.4);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: #000000;
+  border-color: #ffffff;
 }
