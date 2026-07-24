@@ -116,18 +116,13 @@ const UIRenderer = (() => {
     placeInput.addEventListener('input', (e) => {
       const val = e.target.value.toLowerCase();
       if (!val) {
-        renderPlaces(availablePlaces);
+        placeList.innerHTML = '';
+        container.classList.remove('open');
         return;
       }
       
       const matches = availablePlaces.filter(p => p.toLowerCase().startsWith(val));
       renderPlaces(matches, val);
-    });
-
-    placeInput.addEventListener('focus', () => {
-      if (!placeInput.value && availablePlaces.length > 0) {
-        renderPlaces(availablePlaces);
-      }
     });
   }
 
