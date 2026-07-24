@@ -35,26 +35,19 @@ const SubmitEngine = (() => {
     const sections = [
       {
         step: 1,
-        title: 'Personal Details',
+        title: 'Personal & Academic Details',
         items: [
           { label: 'Full Name', value: data.fullName },
           { label: 'Date of Birth', value: data.dob ? data.dob.split('-').reverse().join('/') : '' },
           { label: 'Calculated Age', value: data.age ? `${data.age} Years` : 'N/A' },
           { label: 'Blood Group', value: data.bloodGroup === 'Other' ? `Other (${data.customBloodGroup || ''})` : data.bloodGroup },
           { label: 'Religion', value: data.religion === 'others' ? `Other (${data.customReligion || ''})` : data.religion },
-          { label: 'Aadhaar Number', value: data.aadhaar ? window.Verhoeff.format(data.aadhaar) : '' }
+          { label: 'Aadhaar Number', value: data.aadhaar ? window.Verhoeff.format(data.aadhaar) : '' },
+          { label: 'Class', value: data.class }
         ]
       },
       {
         step: 2,
-        title: 'Academic Details',
-        items: [
-          { label: 'Class', value: data.class },
-          { label: 'Division', value: data.division }
-        ]
-      },
-      {
-        step: 3,
         title: 'Contact Details',
         items: [
           { label: 'Mobile Number', value: data.mobile },
@@ -63,7 +56,7 @@ const SubmitEngine = (() => {
         ]
       },
       {
-        step: 4,
+        step: 3,
         title: 'Address Details',
         items: [
           { label: 'House Name', value: data.houseName },
@@ -73,7 +66,7 @@ const SubmitEngine = (() => {
         ]
       },
       {
-        step: 5,
+        step: 4,
         title: 'Family Details',
         items: [
           { label: 'Father Name', value: data.fatherName },
@@ -108,8 +101,9 @@ const SubmitEngine = (() => {
     container.querySelectorAll('.edit-step-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const stepNum = parseInt(btn.dataset.targetStep, 10);
-        if (window.WizardEngine) {
-          window.WizardEngine.goToStep(stepNum);
+        const pages = ['index.html', 'contact.html', 'address.html', 'family.html', 'review.html'];
+        if (stepNum >= 1 && stepNum <= pages.length) {
+          window.location.href = pages[stepNum - 1];
         }
       });
     });
@@ -208,10 +202,17 @@ const SubmitEngine = (() => {
     if (!modal) return;
 
     // Fill Summary Badge Info
-    document.getElementById('success-student-name').textContent = data.fullName || 'Student';
-    document.getElementById('success-class-info').textContent = `${data.class || ''} - Div ${data.division || ''}`;
-    document.getElementById('success-ref-id').textContent = 'NSS-' + Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('success-timestamp').textContent = new Date().toLocaleDateString('en-IN', {
+    const nameEl = document.getElementById('success-student-name');
+    if (nameEl) nameEl.textContent = data.fullName || 'Student';
+
+    const classEl = document.getElementById('success-class-info');
+    if (classEl) classEl.textContent = `${data.class || ''}`;
+
+    const refEl = document.getElementById('success-ref-id');
+    if (refEl) refEl.textContent = 'NSS-' + Math.floor(100000 + Math.random() * 900000);
+
+    const timeEl = document.getElementById('success-timestamp');
+    if (timeEl) timeEl.textContent = new Date().toLocaleDateString('en-IN', {
       day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
 
@@ -230,14 +231,14 @@ const SubmitEngine = (() => {
     if (newEntryBtn) {
       newEntryBtn.onclick = () => {
         modal.classList.add('hidden');
-        window.location.reload();
+        window.location.href = 'index.html';
       };
     }
 
     if (homeBtn) {
       homeBtn.onclick = () => {
         modal.classList.add('hidden');
-        window.location.reload();
+        window.location.href = 'index.html';
       };
     }
 

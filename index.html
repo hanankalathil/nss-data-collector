@@ -41,37 +41,21 @@
   <!-- Main Web App Container -->
   <main class="main-app-container">
 
-    <!-- Sticky Wizard Header & Progress Controls -->
-    <section id="wizard-header" class="wizard-header-sticky">
-      <div class="wizard-info-row">
-        <h2 id="wizard-step-title" class="wizard-step-title">Personal Details</h2>
-        <span id="wizard-step-badge" class="step-badge-pill">Step 1 of 7</span>
-      </div>
-
-      <!-- Segmented Progress Bar Track -->
-      <div class="wizard-progress-track" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="7">
-        <div id="wizard-progress-fill" class="wizard-progress-fill"></div>
-      </div>
-
-      <!-- Scrollable Step Pills Bar -->
-      <div class="step-pills-scroll" role="tablist" aria-label="Wizard Steps">
-        <button class="step-pill active" role="tab" aria-selected="true" data-step-target="1"><span class="pill-num">1</span> <span class="pill-text">Personal</span></button>
-        <button class="step-pill" role="tab" aria-selected="false" data-step-target="2"><span class="pill-num">2</span> <span class="pill-text">Academic</span></button>
-        <button class="step-pill" role="tab" aria-selected="false" data-step-target="3"><span class="pill-num">3</span> <span class="pill-text">Contact</span></button>
-        <button class="step-pill" role="tab" aria-selected="false" data-step-target="4"><span class="pill-num">4</span> <span class="pill-text">Address</span></button>
-        <button class="step-pill" role="tab" aria-selected="false" data-step-target="5"><span class="pill-num">5</span> <span class="pill-text">Family</span></button>
-        <button class="step-pill" role="tab" aria-selected="false" data-step-target="6"><span class="pill-num">6</span> <span class="pill-text">Review</span></button>
+    <!-- Simple Page Header -->
+    <section id="wizard-header" class="wizard-header-sticky" style="padding-bottom: 1rem;">
+      <div class="wizard-info-row" style="margin-bottom: 0;">
+        <h2 id="wizard-step-title" class="wizard-step-title" style="margin: 0;">Personal & Academic Details</h2>
       </div>
     </section>
 
     <!-- Main Glassmorphism Form Card -->
     <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
 
-      <!-- ==================== STEP 1: PERSONAL DETAILS ==================== -->
+      <!-- ==================== STEP 1: PERSONAL & ACADEMIC DETAILS ==================== -->
       <div class="form-step active" data-step="1">
         <div class="form-section-header">
-          <h2>Personal Details</h2>
-          <p>Please enter your official identification and basic identity details.</p>
+          <h2>Personal & Academic Details</h2>
+          <p>Please enter your official identification, basic identity details and class information.</p>
         </div>
 
         <div class="form-grid-2">
@@ -134,19 +118,6 @@
           </div>
 
 
-        </div>
-      </div>
-
-      <!-- ==================== STEP 2: ACADEMIC DETAILS ==================== -->
-      <div class="form-step" data-step="2">
-        <div class="form-section-header">
-          <h2>Academic Details</h2>
-          <p>Institutional enrolment and class assignment information.</p>
-        </div>
-
-        <div class="form-grid-2">
-          <!-- Admission Number Removed -->
-
           <!-- Class Dropdown -->
           <div class="form-group">
             <label for="class" class="form-label">Class / Course <span class="label-required">*</span></label>
@@ -156,152 +127,15 @@
             <span id="class-error" class="error-msg hidden" role="alert"></span>
           </div>
 
-          <!-- Division Dropdown (Temporarily Disabled) -->
-          <!--
-          <div class="form-group">
-            <label for="division" class="form-label">Division / Batch <span class="label-required">*</span></label>
-            <select id="division" class="input-control" required data-validate aria-describedby="division-error">
-            </select>
-            <span id="division-error" class="error-msg hidden" role="alert"></span>
-          </div>
-          -->
-
-          <!-- Roll Number Removed -->
-
-          <!-- NSS Batch Removed -->
         </div>
       </div>
 
-      <!-- ==================== STEP 3: CONTACT DETAILS ==================== -->
-      <div class="form-step" data-step="3">
-        <div class="form-section-header">
-          <h2>Contact Details</h2>
-          <p>Communication numbers and email for camp alerts and official notices.</p>
-        </div>
-
-        <div class="form-grid-2">
-          <!-- Mobile Number -->
-          <div class="form-group">
-            <label for="mobile" class="form-label">Mobile Number <span class="label-required">*</span></label>
-            <input type="tel" id="mobile" class="input-control" placeholder="e.g. 9876543210" required data-validate maxlength="10" autocomplete="tel" aria-describedby="mobile-error">
-            <span id="mobile-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- WhatsApp Number -->
-          <div class="form-group">
-            <label for="whatsapp" class="form-label">
-              <span>WhatsApp Number <span class="label-required">*</span></span>
-              <button type="button" id="copy-mobile-to-wa-btn" class="btn-text">Same as Mobile</button>
-            </label>
-            <input type="tel" id="whatsapp" class="input-control" placeholder="e.g. 9876543210" required data-validate maxlength="10" aria-describedby="whatsapp-error">
-            <span id="whatsapp-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Email -->
-          <div class="form-group full-width">
-            <label for="email" class="form-label">Email Address <span class="label-required">*</span></label>
-            <input type="email" id="email" class="input-control" placeholder="student@example.com" required data-validate autocomplete="email" aria-describedby="email-error">
-            <span id="email-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Emergency Contact Number Removed -->
-        </div>
-      </div>
-
-      <!-- ==================== STEP 4: ADDRESS DETAILS ==================== -->
-      <div class="form-step" data-step="4">
-        <div class="form-section-header">
-          <h2>Residential Address</h2>
-          <p>Permanent address records for NSS regional unit records.</p>
-        </div>
-
-        <div class="form-grid-2">
-          <!-- House Name -->
-          <div class="form-group full-width">
-            <label for="houseName" class="form-label">House Name / Building <span class="label-required">*</span></label>
-            <input type="text" id="houseName" class="input-control" placeholder="e.g. Rose Villa" required data-validate aria-describedby="houseName-error">
-            <span id="houseName-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- District Cascading Dropdown -->
-          <div class="form-group">
-            <label for="district" class="form-label">District <span class="label-required">*</span></label>
-            <select id="district" class="input-control" required data-validate aria-describedby="district-error">
-              <!-- Rendered dynamically -->
-            </select>
-            <span id="district-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Place -->
-          <div class="form-group autocomplete-container" style="position: relative;">
-            <label for="place" class="form-label">Place / Village <span class="label-required">*</span></label>
-            <input type="text" id="place" class="input-control" placeholder="e.g. Kanjikode" autocomplete="off" required data-validate aria-describedby="place-error">
-            <div id="place-autocomplete-list" class="custom-options-list"></div>
-            <span id="place-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Taluk Dropdown Removed -->
-
-          <!-- State Removed -->
-
-          <!-- PIN Code -->
-          <div class="form-group">
-            <label for="pin" class="form-label">PIN Code <span class="label-required">*</span></label>
-            <input type="text" id="pin" class="input-control" placeholder="6-digit PIN (e.g. 678623)" required data-validate maxlength="6" aria-describedby="pin-error">
-            <span id="pin-error" class="error-msg hidden" role="alert"></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== STEP 5: FAMILY DETAILS ==================== -->
-      <div class="form-step" data-step="5">
-        <div class="form-section-header">
-          <h2>Family Background</h2>
-          <p>Parent and guardian information.</p>
-        </div>
-
-        <div class="form-grid-2">
-          <!-- Father Name -->
-          <div class="form-group">
-            <label for="fatherName" class="form-label">Father's Name <span class="label-required">*</span></label>
-            <input type="text" id="fatherName" class="input-control" placeholder="Father's full name" required data-validate aria-describedby="fatherName-error">
-            <span id="fatherName-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Mother Name -->
-          <div class="form-group">
-            <label for="motherName" class="form-label">Mother's Name <span class="label-required">*</span></label>
-            <input type="text" id="motherName" class="input-control" placeholder="Mother's full name" required data-validate aria-describedby="motherName-error">
-            <span id="motherName-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Guardian Removed -->
-
-          <!-- Occupation Removed -->
-
-          <!-- Annual Income Removed -->
-        </div>
-      </div>
-
-      <!-- ==================== STEP 6: REVIEW & SUBMIT ==================== -->
-      <div class="form-step" data-step="6">
-        <div class="form-section-header">
-          <h2>Review Enrolment Data</h2>
-          <p>Please double-check all details before submitting to the NSS Google Form database.</p>
-        </div>
-
-        <!-- Dynamic Review Summary Cards Output Container -->
-        <div id="review-summary-container" class="review-summary-wrapper">
-          <!-- Populated dynamically by js/submit.js -->
-        </div>
-
-        <!-- Submit Button Box -->
-        <div style="text-align: center; margin-top: 2rem;">
-          <button type="button" id="final-submit-btn" class="wizard-btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; width: 100%; max-width: 360px; justify-content: center;">
-            <span>Submit Application</span>
-            <svg viewBox="0 0 24 24" class="btn-icon"><path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-          </button>
-        </div>
+      <!-- Navigation Buttons -->
+      <div class="wizard-footer-nav" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+        <button type="button" id="next-page-btn" class="wizard-btn btn-primary" data-next="contact.html">
+          <span>Next Step</span>
+          <svg viewBox="0 0 24 24" class="btn-icon"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </button>
       </div>
 
 
@@ -386,7 +220,6 @@
   <script src="js/validation.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/wizard.js"></script>
   <script src="js/submit.js"></script>
   <script src="js/app.js"></script>
 </body>

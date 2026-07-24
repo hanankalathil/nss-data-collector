@@ -60,8 +60,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.no-scroll {
+body.no-scroll {
   overflow: hidden !important;
+  height: 100vh !important;
+  touch-action: none !important;
 }
 
 html, body {
@@ -551,7 +553,8 @@ textarea.input-control {
 .btn-text {
   background: transparent;
   border: none;
-  color: var(--primary-accent);
+  color: var(--text-main);
+  text-decoration: underline;
   font-weight: 600;
   cursor: pointer;
   font-size: 0.85rem;

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSS Enrolment Portal | Residential Address</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/animation.css">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="app-header-container">
+      <div class="brand-wrapper">
+        <div class="brand-logo-badge" aria-hidden="true">NSS</div>
+        <div class="nss-brand-text">
+          <h1>NSS Data Collector</h1>
+          <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-app-container">
+    <section id="wizard-header" class="wizard-header-sticky" style="padding-bottom: 1rem;">
+      <div class="wizard-info-row" style="margin-bottom: 0;">
+        <h2 id="wizard-step-title" class="wizard-step-title" style="margin: 0;">Residential Address</h2>
+      </div>
+    </section>
+
+    <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
+      <div class="form-step active" data-step="3">
+        <div class="form-section-header">
+          <p>Permanent address records for NSS regional unit records.</p>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group full-width">
+            <label for="houseName" class="form-label">House Name / Building <span class="label-required">*</span></label>
+            <input type="text" id="houseName" class="input-control" placeholder="e.g. Rose Villa" required data-validate aria-describedby="houseName-error">
+            <span id="houseName-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="district" class="form-label">District <span class="label-required">*</span></label>
+            <select id="district" class="input-control" required data-validate aria-describedby="district-error">
+              <!-- Rendered dynamically by district.js -->
+            </select>
+            <span id="district-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <div class="form-group autocomplete-container" style="position: relative;">
+            <label for="place" class="form-label">Place / Village <span class="label-required">*</span></label>
+            <input type="text" id="place" class="input-control" placeholder="e.g. Kanjikode" autocomplete="off" required data-validate aria-describedby="place-error">
+            <div id="place-autocomplete-list" class="custom-options-list"></div>
+            <span id="place-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="pin" class="form-label">PIN Code <span class="label-required">*</span></label>
+            <input type="text" id="pin" class="input-control" placeholder="6-digit PIN (e.g. 678623)" required data-validate maxlength="6" aria-describedby="pin-error">
+            <span id="pin-error" class="error-msg hidden" role="alert"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wizard-footer-nav" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+        <button type="button" id="next-page-btn" class="wizard-btn btn-primary" data-next="family.html">
+          <span>Next Step</span>
+          <svg viewBox="0 0 24 24" class="btn-icon"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <script src="js/aadhaar.js"></script>
+  <script src="js/district.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/submit.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

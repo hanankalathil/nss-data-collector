@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSS Enrolment Portal | Contact Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/animation.css">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="app-header-container">
+      <div class="brand-wrapper">
+        <div class="brand-logo-badge" aria-hidden="true">NSS</div>
+        <div class="nss-brand-text">
+          <h1>NSS Data Collector</h1>
+          <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-app-container">
+    <section id="wizard-header" class="wizard-header-sticky" style="padding-bottom: 1rem;">
+      <div class="wizard-info-row" style="margin-bottom: 0;">
+        <h2 id="wizard-step-title" class="wizard-step-title" style="margin: 0;">Contact Details</h2>
+      </div>
+    </section>
+
+    <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
+      <div class="form-step active" data-step="2">
+        <div class="form-section-header">
+          <p>Communication numbers and email for camp alerts and official notices.</p>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="mobile" class="form-label">Mobile Number <span class="label-required">*</span></label>
+            <input type="tel" id="mobile" class="input-control" placeholder="e.g. 9876543210" required data-validate maxlength="10" autocomplete="tel" aria-describedby="mobile-error">
+            <span id="mobile-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="whatsapp" class="form-label">
+              <span>WhatsApp Number <span class="label-required">*</span></span>
+              <button type="button" id="copy-mobile-to-wa-btn" class="btn-text">Same as Mobile</button>
+            </label>
+            <input type="tel" id="whatsapp" class="input-control" placeholder="e.g. 9876543210" required data-validate maxlength="10" aria-describedby="whatsapp-error">
+            <span id="whatsapp-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="email" class="form-label">Email Address <span class="label-required">*</span></label>
+            <input type="email" id="email" class="input-control" placeholder="student@example.com" required data-validate autocomplete="email" aria-describedby="email-error">
+            <span id="email-error" class="error-msg hidden" role="alert"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wizard-footer-nav" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+        <button type="button" id="next-page-btn" class="wizard-btn btn-primary" data-next="address.html">
+          <span>Next Step</span>
+          <svg viewBox="0 0 24 24" class="btn-icon"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <script src="js/aadhaar.js"></script>
+  <script src="js/district.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/submit.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
