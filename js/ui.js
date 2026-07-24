@@ -26,14 +26,20 @@ const UIRenderer = (() => {
     renderDropdownOptions('class', classes, 'Select Class');
     // renderDropdownOptions('division', divisions, 'Select Division');
     renderDistrictOptions();
+    setupDistrictListener();
     setupCharacterCounters();
     setupConditionalFields();
     setupThemeToggle();
     setupWhatsAppCopy();
 
     // Close custom dropdowns on outside click
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-select-wrapper')) {
+        document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+      }
+      if (!e.target.closest('.autocomplete-container')) {
+        document.querySelectorAll('.autocomplete-container').forEach(w => w.classList.remove('open'));
+      }
     });
   }
 
@@ -58,6 +64,71 @@ const UIRenderer = (() => {
       districts.map(d => `<option value="${d}">${d}</option>`).join('');
       
     buildCustomDropdown(districtSelect);
+  }
+
+  function setupDistrictListener() {
+    const districtSelect = document.getElementById('district');
+    const placeInput = document.getElementById('place');
+    const placeList = document.getElementById('place-autocomplete-list');
+    const container = placeInput ? placeInput.closest('.autocomplete-container') : null;
+    
+    if (!districtSelect || !placeInput || !placeList || !container || !window.DistrictData) return;
+
+    let availablePlaces = [];
+
+    // Update available places when district changes
+    districtSelect.addEventListener('change', (e) => {
+      const selectedDistrict = e.target.value;
+      availablePlaces = window.DistrictData.getPlaces(selectedDistrict);
+      placeInput.value = ''; // Clear place when district changes
+      container.classList.remove('open');
+    });
+
+    function renderPlaces(matches, filterText = '') {
+      placeList.innerHTML = '';
+      if (matches.length === 0) {
+        container.classList.remove('open');
+        return;
+      }
+      
+      matches.forEach(match => {
+        const opt = document.createElement('div');
+        opt.className = 'custom-option';
+        
+        if (filterText) {
+          const regex = new RegExp(`^(${filterText})`, "i");
+          opt.innerHTML = match.replace(regex, "<strong>$1</strong>");
+        } else {
+          opt.textContent = match;
+        }
+        
+        opt.addEventListener('click', () => {
+          placeInput.value = match;
+          placeInput.dispatchEvent(new Event('input', { bubbles: true }));
+          container.classList.remove('open');
+        });
+        
+        placeList.appendChild(opt);
+      });
+      container.classList.add('open');
+    }
+
+    placeInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase();
+      if (!val) {
+        renderPlaces(availablePlaces);
+        return;
+      }
+      
+      const matches = availablePlaces.filter(p => p.toLowerCase().startsWith(val));
+      renderPlaces(matches, val);
+    });
+
+    placeInput.addEventListener('focus', () => {
+      if (!placeInput.value && availablePlaces.length > 0) {
+        renderPlaces(availablePlaces);
+      }
+    });
   }
 
   function buildCustomDropdown(select) {

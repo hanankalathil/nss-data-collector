@@ -223,17 +223,6 @@
             <span id="houseName-error" class="error-msg hidden" role="alert"></span>
           </div>
 
-          <!-- Place -->
-          <div class="form-group">
-            <label for="place" class="form-label">Place / Village <span class="label-required">*</span></label>
-            <input type="text" id="place" class="input-control" placeholder="e.g. Kanjikode" required data-validate aria-describedby="place-error">
-            <span id="place-error" class="error-msg hidden" role="alert"></span>
-          </div>
-
-          <!-- Post Office Removed -->
-
-          <!-- Panchayat Removed -->
-
           <!-- District Cascading Dropdown -->
           <div class="form-group">
             <label for="district" class="form-label">District <span class="label-required">*</span></label>
@@ -241,6 +230,14 @@
               <!-- Rendered dynamically -->
             </select>
             <span id="district-error" class="error-msg hidden" role="alert"></span>
+          </div>
+
+          <!-- Place -->
+          <div class="form-group autocomplete-container" style="position: relative;">
+            <label for="place" class="form-label">Place / Village <span class="label-required">*</span></label>
+            <input type="text" id="place" class="input-control" placeholder="e.g. Kanjikode" autocomplete="off" required data-validate aria-describedby="place-error">
+            <div id="place-autocomplete-list" class="custom-options-list"></div>
+            <span id="place-error" class="error-msg hidden" role="alert"></span>
           </div>
 
           <!-- Taluk Dropdown Removed -->

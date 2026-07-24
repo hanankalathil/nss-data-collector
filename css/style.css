@@ -837,7 +837,8 @@ select.input-control.customized {
   transition: all 0.2s ease;
 }
 
-.custom-select-wrapper.open .custom-options-list {
+.custom-select-wrapper.open .custom-options-list,
+.autocomplete-container.open .custom-options-list {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
