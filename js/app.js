@@ -15,6 +15,7 @@ const AppController = (() => {
 
     // 3. Attach Live Validation & Input Masking
     setupInputListeners();
+    setupAadhaarConfirmation();
 
     // 4. Check & Restore Saved Draft
     restoreDraft();
@@ -62,6 +63,64 @@ const AppController = (() => {
         triggerAutoSave();
       });
     });
+
+    const confirmAadhaarInput = document.getElementById('confirm-aadhaar-input');
+    if (confirmAadhaarInput) {
+      confirmAadhaarInput.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '').slice(0, 12);
+        e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+      });
+    }
+  }
+
+  function setupAadhaarConfirmation() {
+    const aadhaarInput = document.getElementById('aadhaar');
+    const modal = document.getElementById('aadhaar-confirm-modal');
+    const confirmInput = document.getElementById('confirm-aadhaar-input');
+    const btnCancel = document.getElementById('modal-aadhaar-cancel-btn');
+    const btnOk = document.getElementById('modal-aadhaar-ok-btn');
+
+    if (!aadhaarInput || !modal || !confirmInput || !btnCancel || !btnOk) return;
+
+    aadhaarInput.addEventListener('input', () => {
+      aadhaarInput.dataset.confirmed = 'false';
+    });
+
+    aadhaarInput.addEventListener('blur', () => {
+      if (aadhaarInput.value.length === 14 && aadhaarInput.dataset.confirmed !== 'true') {
+        openAadhaarModal();
+      }
+    });
+
+    btnCancel.addEventListener('click', () => {
+      closeAadhaarModal();
+    });
+
+    btnOk.addEventListener('click', () => {
+      if (confirmInput.value === aadhaarInput.value) {
+        aadhaarInput.dataset.confirmed = 'true';
+        if (window.StorageManager) window.StorageManager.showToast('Aadhaar Confirmed!', 'success');
+        closeAadhaarModal();
+      } else {
+        aadhaarInput.value = '';
+        confirmInput.value = '';
+        aadhaarInput.dataset.confirmed = 'false';
+        if (window.StorageManager) window.StorageManager.showToast('Aadhaar numbers do not match. Cleared.', 'error');
+        validateField(aadhaarInput); // Re-validate to show error state
+        closeAadhaarModal();
+        aadhaarInput.focus();
+      }
+    });
+
+    function openAadhaarModal() {
+      confirmInput.value = '';
+      modal.classList.remove('hidden');
+      setTimeout(() => confirmInput.focus(), 100);
+    }
+
+    function closeAadhaarModal() {
+      modal.classList.add('hidden');
+    }
   }
 
   /**
@@ -246,6 +305,12 @@ const AppController = (() => {
       }
     }
 
+    // Set confirmed state if Aadhaar was saved
+    const aadhaarEl = document.getElementById('aadhaar');
+    if (aadhaarEl && draft.aadhaar && draft.aadhaar.length === 14) {
+      aadhaarEl.dataset.confirmed = 'true';
+    }
+
     window.StorageManager.showToast('Draft Restored — Continue where you left off', 'info', 4000);
   }
 
@@ -253,7 +318,8 @@ const AppController = (() => {
     init,
     validateField,
     validateAll,
-    getFormData
+    getFormData,
+    setupAadhaarConfirmation
   };
 })();
 

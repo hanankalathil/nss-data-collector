@@ -216,6 +216,18 @@ const WizardEngine = (() => {
       return false;
     }
 
+    if (currentStep === 1) {
+      const aadhaarEl = document.getElementById('aadhaar');
+      if (aadhaarEl && aadhaarEl.dataset.confirmed !== 'true') {
+        if (window.StorageManager) {
+          window.StorageManager.showToast('Please confirm your Aadhaar number to proceed.', 'warning');
+        }
+        aadhaarEl.focus();
+        aadhaarEl.blur(); // Trigger the blur event to open modal
+        return false;
+      }
+    }
+
     return true;
   }
 
