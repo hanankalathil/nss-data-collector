@@ -122,17 +122,13 @@ const ValidationEngine = (() => {
   }
 
   /**
-   * Validates Aadhaar via Verhoeff algorithm
+   * Validates Aadhaar (12-digit number only)
    */
   function validateAadhaar(aadhaarStr) {
-    const clean = window.Verhoeff ? window.Verhoeff.unformat(aadhaarStr) : String(aadhaarStr).replace(/\D/g, '');
+    const clean = String(aadhaarStr).replace(/\D/g, '');
     if (!clean) return { valid: false, message: 'Aadhaar number is required.' };
     if (clean.length !== 12) return { valid: false, message: 'Aadhaar must be exactly 12 digits.' };
     
-    if (window.Verhoeff && !window.Verhoeff.validate(clean)) {
-      return { valid: false, message: 'Invalid Aadhaar Number (Verhoeff checksum failed).' };
-    }
-
     return { valid: true, message: 'Valid Aadhaar Number' };
   }
 

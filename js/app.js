@@ -70,10 +70,9 @@ const AppController = (() => {
   function handleFormatting(el) {
     const id = el.id;
 
-    if (id === 'aadhaar' && window.Verhoeff) {
-      const rawPos = el.selectionStart;
-      const formatted = window.Verhoeff.format(el.value);
-      el.value = formatted;
+    if (id === 'aadhaar') {
+      let v = el.value.replace(/\D/g, '').slice(0, 12);
+      el.value = v.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
     } else if (id === 'mobile' || id === 'whatsapp') {
       el.value = el.value.replace(/\D/g, '').slice(0, 10);
     } else if (id === 'pin') {
