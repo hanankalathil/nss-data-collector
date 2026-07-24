@@ -1,0 +1,118 @@
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS & MOBILE TOUCH OPTIMIZATIONS
+   ========================================================================== */
+
+/* Mobile Layout Refinements (< 768px) */
+@media (max-width: 768px) {
+  .app-header-container {
+    padding: 0 1rem;
+  }
+
+  .nss-brand-text h1 {
+    font-size: 1.1rem;
+  }
+
+  .nss-brand-sub {
+    font-size: 0.7rem;
+  }
+
+  .main-app-container {
+    padding: 1rem 0.75rem 6rem 0.75rem;
+  }
+
+  .glass-card {
+    padding: 1.25rem 1rem;
+    border-radius: 18px;
+  }
+
+  .form-grid-2, .form-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .step-pills-scroll {
+    gap: 0.4rem;
+  }
+
+  .step-pill {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .pill-text {
+    display: inline;
+  }
+
+  .gender-pills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wizard-footer-bar {
+    padding: 0.85rem 1rem;
+    border-radius: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 90;
+  }
+
+  .wizard-btn {
+    min-height: 48px;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra Small Screens (< 480px) */
+@media (max-width: 480px) {
+  .brand-logo-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .step-badge-pill {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .form-section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .photo-dropzone-inner {
+    padding: 1.25rem;
+  }
+
+  .success-modal-card {
+    padding: 1.5rem 1.25rem;
+    width: 95%;
+  }
+
+  .success-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .success-actions button {
+    width: 100%;
+  }
+}
+
+/* Larger Screens (> 1024px) */
+@media (min-width: 1024px) {
+  .main-app-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+}
