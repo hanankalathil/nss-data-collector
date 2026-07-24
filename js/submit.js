@@ -138,8 +138,16 @@ const SubmitEngine = (() => {
       `;
     }
 
-    // Build URLSearchParams for Google Form
-    const formData = new URLSearchParams();
+    // Build form inputs dynamically
+    const hiddenForm = document.getElementById('hidden-gform');
+    const iframe = document.getElementById('hiddenConfirm');
+    
+    if (!hiddenForm || !iframe) {
+      console.error('Hidden form or iframe not found!');
+      return;
+    }
+
+    hiddenForm.innerHTML = ''; // Clear previous inputs
 
     // Map each field to its Google Form entry ID
     for (const [key, entryId] of Object.entries(entryMapping)) {
@@ -157,35 +165,41 @@ const SubmitEngine = (() => {
         val = window.Verhoeff ? window.Verhoeff.unformat(val) : val;
       }
       if (key === 'dob' && val) {
-        val = val.split('-').reverse().join('/');
+        // Form might prefer YYYY-MM-DD. If this causes issues, Google Forms Date fields expect YYYY-MM-DD.
+        // If it's a short answer field, DD/MM/YYYY is fine. Let's send raw YYYY-MM-DD since that's standard for HTML date inputs.
+        val = val; 
       }
-      formData.append(entryId, val);
+      
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = entryId;
+      input.value = val;
+      hiddenForm.appendChild(input);
     }
 
     try {
-      // Send fetch POST with no-cors as Google Forms blocks cross-origin reading
-      await fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData.toString()
-      });
-
-      // Show Success Screen
-      setTimeout(() => {
-        if (window.StorageManager) {
-          window.StorageManager.clearDraft();
+      // Setup iframe load listener to detect when submission is done
+      let submitted = false;
+      iframe.onload = function() {
+        if (submitted) {
+          // Iframe has loaded the response
+          setTimeout(() => {
+            if (window.StorageManager) {
+              window.StorageManager.clearDraft();
+            }
+            showSuccessModal(data);
+          }, 800);
         }
-        showSuccessModal(data);
-      }, 800);
+      };
+
+      // Submit the form
+      submitted = true;
+      hiddenForm.submit();
 
     } catch (err) {
       console.error('Submission error:', err);
-      // Even if fetch fails or network drops, show graceful notification
       if (window.StorageManager) {
-        window.StorageManager.showToast('Network issue during submission. Your draft is preserved.', 'warning');
+        window.StorageManager.showToast('Submission error. Please check your data.', 'warning');
       }
       if (submitBtn) {
         submitBtn.disabled = false;
