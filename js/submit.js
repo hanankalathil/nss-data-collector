@@ -3,24 +3,24 @@
  */
 
 const SubmitEngine = (() => {
-  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSftpfMlvc2WZMsf4HfMzY7QBDWG0GlHHt03138JupTBDHf9_g/formResponse';
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfy2NiGpQ50D3aQoM0gNidX_JaD6f2m2AGHgcJlV5HMcgDdCw/formResponse';
 
   const entryMapping = {
-    fullName: 'entry.1755851047',
-    dob: 'entry.809208091',
-    classDivision: 'entry.682591191',
-    houseName: 'entry.365868519',
-    aadhaar: 'entry.1146880959',
-    fatherName: 'entry.1138625124',
-    motherName: 'entry.77290248',
-    bloodGroup: 'entry.1051116503',
-    religion: 'entry.1636673135',
-    place: 'entry.1996158432',
-    district: 'entry.1230899810',
-    pin: 'entry.1654456109',
-    mobile: 'entry.1214021817',
-    whatsapp: 'entry.1984168505',
-    email: 'entry.218111412'
+    fullName: 'entry.25191227',
+    dob: 'entry.986506903',
+    classDivision: 'entry.1782338167',
+    houseName: 'entry.1814808793',
+    aadhaar: 'entry.1885108592',
+    fatherName: 'entry.1267336884',
+    motherName: 'entry.155583555',
+    bloodGroup: 'entry.244503853',
+    religion: 'entry.149326405',
+    place: 'entry.1167135396',
+    district: 'entry.1749947510',
+    pin: 'entry.919847019',
+    mobile: 'entry.484960338',
+    whatsapp: 'entry.375984256',
+    email: 'entry.1690771946'
   };
 
   /**
@@ -132,10 +132,12 @@ const SubmitEngine = (() => {
     // Set Loading State
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <span class="spinner"></span>
-        <span>Submitting to NSS Portal...</span>
-      `;
+    }
+    const loadingModal = document.getElementById('loading-modal');
+    if (loadingModal) {
+      loadingModal.classList.remove('hidden');
+      loadingModal.classList.add('animate-fade-in');
+      document.body.classList.add('no-scroll');
     }
 
     // Build form inputs dynamically
@@ -147,29 +149,44 @@ const SubmitEngine = (() => {
       return;
     }
 
+    hiddenForm.action = GOOGLE_FORM_URL;
     hiddenForm.innerHTML = ''; // Clear previous inputs
 
     // Map each field to its Google Form entry ID
     for (const [key, entryId] of Object.entries(entryMapping)) {
       let val = data[key] || '';
+      
+      // Formatting fields to exactly match Google Forms expectations
+
       if (key === 'classDivision') {
-        val = `${data.class || ''} ${data.division || ''}`.trim();
-      }
-      if (key === 'religion' && val === 'others') {
-        val = data.customReligion || 'others';
-      }
-      if (key === 'bloodGroup' && val === 'Other') {
-        val = data.customBloodGroup || 'Other';
-      }
-      if (key === 'aadhaar') {
-        val = window.Verhoeff ? window.Verhoeff.unformat(val) : val;
-      }
-      if (key === 'dob' && val) {
-        // Form might prefer YYYY-MM-DD. If this causes issues, Google Forms Date fields expect YYYY-MM-DD.
-        // If it's a short answer field, DD/MM/YYYY is fine. Let's send raw YYYY-MM-DD since that's standard for HTML date inputs.
-        val = val; 
+        val = data.class || '';
       }
       
+      if (key === 'dob' && val) {
+        // Google Forms POST expects Date fields to be split into year, month, and day
+        const parts = val.split('-'); // Expected format: YYYY-MM-DD
+        if (parts.length === 3) {
+          const yearInput = document.createElement('input');
+          yearInput.type = 'hidden';
+          yearInput.name = entryId + '_year';
+          yearInput.value = parts[0];
+          hiddenForm.appendChild(yearInput);
+
+          const monthInput = document.createElement('input');
+          monthInput.type = 'hidden';
+          monthInput.name = entryId + '_month';
+          monthInput.value = parts[1];
+          hiddenForm.appendChild(monthInput);
+
+          const dayInput = document.createElement('input');
+          dayInput.type = 'hidden';
+          dayInput.name = entryId + '_day';
+          dayInput.value = parts[2];
+          hiddenForm.appendChild(dayInput);
+        }
+        continue; // Skip the default single input creation for dob
+      }
+
       const input = document.createElement('input');
       input.type = 'hidden';
       input.name = entryId;
@@ -184,6 +201,11 @@ const SubmitEngine = (() => {
         if (submitted) {
           // Iframe has loaded the response
           setTimeout(() => {
+            const loadingModal = document.getElementById('loading-modal');
+            if (loadingModal) {
+              loadingModal.classList.add('hidden');
+              loadingModal.classList.remove('animate-fade-in');
+            }
             if (window.StorageManager) {
               window.StorageManager.clearDraft();
             }
@@ -198,12 +220,17 @@ const SubmitEngine = (() => {
 
     } catch (err) {
       console.error('Submission error:', err);
+      const loadingModal = document.getElementById('loading-modal');
+      if (loadingModal) {
+        loadingModal.classList.add('hidden');
+        loadingModal.classList.remove('animate-fade-in');
+        document.body.classList.remove('no-scroll');
+      }
       if (window.StorageManager) {
         window.StorageManager.showToast('Submission error. Please check your data.', 'warning');
       }
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Submit Application</span>`;
       }
     }
   }

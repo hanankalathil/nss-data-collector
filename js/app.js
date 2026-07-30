@@ -10,8 +10,7 @@ const AppController = (() => {
     // 1. Initialize UI Controls & Options
     if (window.UIRenderer) window.UIRenderer.initDynamicControls();
 
-    // 2. Initialize Multi-Step Wizard
-    if (window.WizardEngine) window.WizardEngine.initWizard();
+    // 2. Multi-Step Wizard Removed (Using separate HTML pages now)
 
     // 3. Attach Live Validation & Input Masking
     setupInputListeners();
@@ -37,6 +36,27 @@ const AppController = (() => {
         e.preventDefault();
         if (window.SubmitEngine) {
           window.SubmitEngine.handleSubmit(e);
+        }
+      });
+    }
+
+    // 6. Setup MPA Next Page Routing
+    const nextBtn = document.getElementById('next-page-btn');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Validate current page fields
+        const isValid = validateAll();
+        
+        if (isValid) {
+          triggerAutoSave();
+          // Adding a tiny delay to ensure save completes (localStorage is sync, but just in case)
+          setTimeout(() => {
+            window.location.href = nextBtn.dataset.next;
+          }, 50);
+        } else {
+           if (window.StorageManager) window.StorageManager.showToast('Please fix highlighted errors before proceeding.', 'warning');
         }
       });
     }
@@ -138,6 +158,8 @@ const AppController = (() => {
       el.value = el.value.replace(/\D/g, '').slice(0, 10);
     } else if (id === 'pin') {
       el.value = el.value.replace(/\D/g, '').slice(0, 6);
+    } else if (id === 'fatherName' || id === 'motherName' || id === 'fullName') {
+      el.value = el.value.replace(/[^a-zA-Z.\s]/g, '');
     }
   }
 
@@ -236,13 +258,12 @@ const AppController = (() => {
     return allValid;
   }
 
-  /**
-   * Aggregate all form input values into a clean data object
-   */
   function getFormData() {
-    const data = {};
+    // If we only query the DOM on the current page, we will lose data from other pages
+    // So we must merge the current DOM values with the existing draft in localStorage
+    const data = window.StorageManager ? (window.StorageManager.getDraft() || {}) : {};
 
-    // Standard inputs, selects, textareas
+    // Standard inputs, selects, textareas that might exist on CURRENT page
     const fields = [
       'fullName', 'dob', 'age', 'bloodGroup', 'customBloodGroup', 'religion', 'customReligion', 'aadhaar',
       'class', 'division',
@@ -307,8 +328,6 @@ const AppController = (() => {
     if (aadhaarEl && draft.aadhaar && draft.aadhaar.length === 14) {
       aadhaarEl.dataset.confirmed = 'true';
     }
-
-    window.StorageManager.showToast('Draft Restored — Continue where you left off', 'info', 4000);
   }
 
   return {

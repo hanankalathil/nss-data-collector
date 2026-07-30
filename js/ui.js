@@ -3,19 +3,19 @@
  */
 
 const UIRenderer = (() => {
-  // Option Datasets
+  // Option Datasets to strictly match Google Form exactly
   const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'Other'];
-  const religions = ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Jain', 'Buddhist', 'others'];
-  const classes = ['B1', 'CS1', 'C1', 'H1', 'B2', 'CS2', 'C2', 'H2'];
-  const divisions = ['A', 'B', 'C', 'D', 'E', 'F', 'NSS Batch 1', 'NSS Batch 2'];
+  const religions = ['Hindu', 'Muslim', 'Christian', 'others'];
+  const classes = ['B2', 'CS2', 'C2', 'H2'];
+  const divisions = ['A', 'B', 'C', 'D']; // Unused for form submission but kept
   const nssBatches = ['2024-2026', '2025-2027', '2026-2028'];
   const genders = [
     { value: 'Male', label: 'Male', icon: '👨' },
     { value: 'Female', label: 'Female', icon: '👩' },
-    { value: 'Other', label: 'Other / Non-binary', icon: '🧑' }
+    { value: 'Other', label: 'Other', icon: '🧑' }
   ];
-  const defaultSkills = ['First Aid & Rescue', 'Public Speaking & Anchoring', 'Leadership & Event Management', 'Media & Photography', 'Coding & Web Design', 'Cultural & Arts', 'Sports & Fitness', 'Disaster Management'];
-  const languagesList = ['Malayalam', 'English', 'Hindi', 'Tamil', 'Kannada', 'Arabic'];
+  const defaultSkills = [];
+  const languagesList = [];
 
   /**
    * Initializes all dynamic DOM components

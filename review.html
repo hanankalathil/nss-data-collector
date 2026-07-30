@@ -55,6 +55,15 @@
     </form>
   </main>
   
+  <!-- Loading Modal -->
+  <div id="loading-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-loading-title" style="z-index: 9999;">
+    <div class="success-modal-card" style="background: transparent; border: none; box-shadow: none; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="spinner" style="width: 60px; height: 60px; border-width: 6px; border-color: #cdff00 #cdff00 transparent transparent; border-radius: 50%; margin-bottom: 20px;"></div>
+      <h3 id="modal-loading-title" class="success-title" style="color: white; text-shadow: 2px 2px 0 #000;">Submitting to NSS Portal...</h3>
+      <p class="success-desc" style="color: white; text-shadow: 1px 1px 0 #000;">Please wait while we save your data.</p>
+    </div>
+  </div>
+
   <!-- Success Modals -->
   <div id="success-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
     <canvas id="confetti-canvas"></canvas>
@@ -89,7 +98,7 @@
 
   <!-- Hidden Iframe & Form for Reliable Google Forms Submission -->
   <iframe name="hiddenConfirm" id="hiddenConfirm" style="display: none;"></iframe>
-  <form id="hidden-gform" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSftpfMlvc2WZMsf4HfMzY7QBDWG0GlHHt03138JupTBDHf9_g/formResponse" method="POST" target="hiddenConfirm" style="display: none;">
+  <form id="hidden-gform" action="https://docs.google.com/forms/d/e/1FAIpQLSfy2NiGpQ50D3aQoM0gNidX_JaD6f2m2AGHgcJlV5HMcgDdCw/formResponse" method="POST" target="hiddenConfirm" style="display: none;">
   </form>
 
   <script src="js/aadhaar.js"></script>
