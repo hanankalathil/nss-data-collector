@@ -42,7 +42,6 @@ const SubmitEngine = (() => {
           { label: 'Calculated Age', value: data.age ? `${data.age} Years` : 'N/A' },
           { label: 'Blood Group', value: data.bloodGroup === 'Other' ? `Other (${data.customBloodGroup || ''})` : data.bloodGroup },
           { label: 'Religion', value: data.religion === 'others' ? `Other (${data.customReligion || ''})` : data.religion },
-          { label: 'Aadhaar Number', value: data.aadhaar ? window.Verhoeff.format(data.aadhaar) : '' },
           { label: 'Class', value: data.class }
         ]
       },
