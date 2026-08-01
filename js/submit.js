@@ -195,10 +195,10 @@ const SubmitEngine = (() => {
     }
 
     try {
-      // Setup iframe load listener to detect when submission is done
       let submitted = false;
       iframe.onload = function() {
         if (submitted) {
+          submitted = false; // Prevent double execution
           // Iframe has loaded the response
           setTimeout(() => {
             const loadingModal = document.getElementById('loading-modal');
@@ -217,6 +217,14 @@ const SubmitEngine = (() => {
       // Submit the form
       submitted = true;
       hiddenForm.submit();
+
+      // Fallback timeout in case iframe onload is blocked by browser security policies
+      setTimeout(() => {
+        if (submitted) {
+          console.warn('Iframe onload fallback triggered.');
+          iframe.onload();
+        }
+      }, 3500);
 
     } catch (err) {
       console.error('Submission error:', err);

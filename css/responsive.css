@@ -9,11 +9,13 @@
   }
 
   .nss-brand-text h1 {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
   }
 
   .nss-brand-sub {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
+    white-space: nowrap;
+    padding: 0.15rem 0.4rem;
   }
 
   .main-app-container {
@@ -75,10 +77,9 @@
 
 /* Extra Small Screens (< 480px) */
 @media (max-width: 480px) {
-  .brand-logo-badge {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+  .brand-logo-img {
+    width: 46px;
+    height: 46px;
   }
 
   .step-badge-pill {

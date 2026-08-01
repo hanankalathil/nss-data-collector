@@ -5,27 +5,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  /* Light Mode Color System - Brutalism */
-  --bg-color: #f4f4f0;
+  /* Modern Clean Style - Apt for NSS Logo */
+  --bg-color: #f8fafc;
   --bg-gradient: none;
   --surface-glass: #ffffff;
-  --surface-glass-border: #000000;
-  --card-shadow: 4px 4px 0px #000000;
+  --surface-glass-border: #e2e8f0;
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
   
-  --text-main: #000000;
-  --text-muted: #333333;
-  --text-subtle: #666666;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #94a3b8;
 
   --input-bg: #ffffff;
-  --input-border: #000000;
-  --input-focus-border: #000000;
-  --input-focus-glow: transparent;
+  --input-border: #cbd5e1;
+  --input-focus-border: var(--primary-accent);
+  --input-focus-glow: 0 0 0 3px rgba(0, 33, 71, 0.15);
 
-  --primary-accent: #ccff00; /* Neon yellow */
+  --primary-accent: #002147; /* NSS Navy Blue */
   --primary-gradient: none;
-  --primary-hover: #b3e600;
+  --primary-hover: #001530;
 
-  --secondary-accent: #ff00ff; /* Hot pink */
+  --secondary-accent: #e31837; /* NSS Red */
 
   --success-color: #00ff00;
   --warning-color: #ffff00;
@@ -39,14 +39,14 @@
   --toast-text: #000000;
 
   --badge-bg: var(--primary-accent);
-  --badge-text: #000000;
+  --badge-text: #ffffff;
 
-  --radius-lg: 0px;
-  --radius-md: 0px;
-  --radius-sm: 0px;
-  --radius-pill: 0px;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+  --radius-pill: 9999px;
   
-  --border-width: 3px;
+  --border-width: 1px;
   
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Space Mono', monospace;
@@ -94,8 +94,11 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #ffffff;
-  border-bottom: var(--border-width) solid var(--input-border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
@@ -114,33 +117,48 @@ html, body {
   gap: 0.75rem;
 }
 
-.brand-logo-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--primary-accent);
-  border: var(--border-width) solid #000000;
-  color: #000000;
+.brand-logo-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  padding: 2px;
+}
+
+.nss-brand-text {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.1rem;
-  box-shadow: 2px 2px 0px #000000;
 }
 
 .nss-brand-text h1 {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .nss-brand-sub {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  color: var(--primary-accent);
+  font-weight: 700;
+  margin-top: 0.35rem;
+  background: rgba(0, 33, 71, 0.06);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  width: fit-content;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .nav-actions {
@@ -210,7 +228,7 @@ html, body {
 .step-badge-pill {
   background: var(--badge-bg);
   color: var(--badge-text);
-  border: var(--border-width) solid #000000;
+  border: var(--border-width) solid transparent;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
@@ -231,7 +249,7 @@ html, body {
   height: 100%;
   width: 14.28%;
   background: var(--secondary-accent);
-  border-right: var(--border-width) solid #000000;
+  border-right: none;
   border-radius: var(--radius-pill);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -269,13 +287,13 @@ html, body {
 .step-pill.active {
   background: var(--pill-active-bg);
   color: var(--pill-active-text);
-  border-color: #000000;
-  box-shadow: 2px 2px 0px #000000;
+  border-color: var(--primary-accent);
+  box-shadow: 0 2px 4px rgba(0, 33, 71, 0.2);
 }
 
 .step-pill.completed {
   background: var(--primary-accent);
-  color: #000000;
+  color: #ffffff;
   border-color: #000000;
 }
 
@@ -360,17 +378,17 @@ html, body {
   transition: all 0.25s ease;
   appearance: none;
   -webkit-appearance: none;
-  box-shadow: 2px 2px 0px #000000;
+  box-shadow: var(--card-shadow);
 }
 
 textarea.input-control {
   min-height: 90px;
-  resize: vertical;
+  box-shadow: var(--card-shadow);
 }
 
 .input-control:focus {
   border-color: var(--input-focus-border);
-  box-shadow: 4px 4px 0px #000000;
+  box-shadow: var(--input-focus-glow);
   background: var(--surface-glass);
 }
 
@@ -448,14 +466,14 @@ textarea.input-control {
   font-weight: 600;
   color: var(--text-main);
   transition: all 0.25s ease;
-  box-shadow: 2px 2px 0px #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .radio-pill-card input[type="radio"]:checked + .pill-content {
   background: var(--primary-accent);
-  color: #000000;
-  border-color: #000000;
-  box-shadow: 4px 4px 0px #000000;
+  color: #ffffff;
+  border-color: var(--primary-accent);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -513,10 +531,10 @@ textarea.input-control {
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;
-  border: var(--border-width) solid #000000;
+  border: var(--border-width) solid var(--input-border);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 3px 3px 0px #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .btn-secondary {
@@ -527,18 +545,20 @@ textarea.input-control {
 .btn-secondary:hover {
   background: var(--pill-bg);
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px #000000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
   background: var(--primary-accent);
-  color: #000000;
+  color: #ffffff;
+  border-color: var(--primary-accent);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px #000000;
+  box-shadow: 0 6px 12px rgba(0, 33, 71, 0.2);
+  color: #ffffff;
 }
 
 .btn-icon {
@@ -797,7 +817,7 @@ select.input-control.customized {
   border-radius: var(--radius-md);
   outline: none;
   cursor: pointer;
-  box-shadow: 2px 2px 0px #000000;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -813,7 +833,7 @@ select.input-control.customized {
 
 .custom-select-wrapper.open .custom-select-trigger {
   border-color: var(--input-focus-border);
-  box-shadow: 4px 4px 0px #000000;
+  box-shadow: var(--input-focus-glow);
   background: var(--surface-glass);
 }
 
@@ -828,7 +848,7 @@ select.input-control.customized {
   width: 100%;
   background: var(--surface-glass);
   border: var(--border-width) solid var(--surface-glass-border);
-  box-shadow: 4px 4px 0px #000000;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: var(--radius-md);
   margin-top: 5px;
   max-height: 250px;
@@ -866,13 +886,13 @@ select.input-control.customized {
 }
 
 .custom-option:not(.disabled):hover {
-  background-color: #cccccc;
-  color: var(--text-main);
+  background-color: #f1f5f9;
+  color: var(--primary-accent);
 }
 
 .custom-option.selected {
   background-color: var(--primary-accent);
-  color: #000000;
+  color: #ffffff;
   font-weight: bold;
 }
 

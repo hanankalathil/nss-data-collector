@@ -18,38 +18,24 @@
 </head>
 <body>
 
-  <!-- Sticky Glassmorphism Top Navigation Header -->
-  <header class="top-nav">
-    <div class="app-header-container">
-      <div class="brand-wrapper">
-        <div class="brand-logo-badge" aria-hidden="true">NSS</div>
-        <div class="nss-brand-text">
-          <h1>NSS Data Collector</h1>
-          <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
-        </div>
-      </div>
-      <div class="nav-actions">
-        <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Light and Dark Mode" title="Toggle Theme">
-          <span id="theme-icon">
-            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>
-          </span>
-        </button>
-      </div>
-    </div>
-  </header>
+
 
   <!-- Main Web App Container -->
   <main class="main-app-container">
 
-    <!-- Simple Page Header -->
-    <section id="wizard-header" class="wizard-header-sticky" style="padding-bottom: 1rem;">
-      <div class="wizard-info-row" style="margin-bottom: 0;">
-        <h2 id="wizard-step-title" class="wizard-step-title" style="margin: 0;">Personal & Academic Details</h2>
-      </div>
-    </section>
-
     <!-- Main Glassmorphism Form Card -->
     <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
+      
+      <!-- Unified Header Section inside Card -->
+      <div class="app-header-container card-header" style="padding: 0 0 1.5rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid var(--input-border);">
+        <div class="brand-wrapper">
+          <img src="image/nss logo.png" alt="NSS Logo" class="brand-logo-img">
+          <div class="nss-brand-text">
+            <h1>NSS Data Collector</h1>
+            <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
+          </div>
+        </div>
+      </div>
 
       <!-- ==================== STEP 1: PERSONAL & ACADEMIC DETAILS ==================== -->
       <div class="form-step active" data-step="1">
@@ -172,17 +158,17 @@
   <div id="success-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-success-title">
     <canvas id="confetti-canvas"></canvas>
 
-    <div class="success-modal-card" style="background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000; border-radius: 0; padding: 2.5rem 2rem;">
-      <div class="checkmark-badge-wrapper" style="width: 80px; height: 80px; margin: 0 auto 1.5rem auto; background: #cdff00; border: 4px solid #000; display: flex; align-items: center; justify-content: center; box-shadow: 4px 4px 0 #000; border-radius: 0;">
-        <svg viewBox="0 0 52 52" style="width: 50px; height: 50px; overflow: visible;">
-          <path fill="none" stroke="#000" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" d="M12 26l10 10 20-20" />
+    <div class="success-modal-card" style="background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border-radius: 16px; padding: 2.5rem 2rem;">
+      <div class="checkmark-badge-wrapper" style="width: 80px; height: 80px; margin: 0 auto 1.5rem auto; background: #e0f2fe; border: none; display: flex; align-items: center; justify-content: center; box-shadow: none; border-radius: 50%;">
+        <svg viewBox="0 0 52 52" style="width: 40px; height: 40px; overflow: visible;">
+          <path fill="none" stroke="#0ea5e9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M14 27l8 8 16-16" />
         </svg>
       </div>
 
       <h3 id="modal-success-title" class="success-title">Enrolment Submitted!</h3>
       <p class="success-desc">Your NSS Student Registration has been successfully recorded into the official Google Forms database.</p>
 
-      <div class="success-receipt-box" style="background: #fff; border: 3px solid #000; box-shadow: 4px 4px 0 #000; border-radius: 0;">
+      <div class="success-receipt-box" style="background: #f8fafc; border: 1px solid #e2e8f0; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02); border-radius: 8px;">
         <div class="receipt-row">
           <span class="receipt-label">Applicant:</span>
           <span id="success-student-name" class="receipt-val">--</span>

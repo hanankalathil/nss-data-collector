@@ -3,26 +3,26 @@
    ========================================================================== */
 
 [data-theme="dark"] {
-  --bg-color: #000000;
+  --bg-color: #0f172a; /* Soft dark background */
   --bg-gradient: none;
-  --surface-glass: #000000;
-  --surface-glass-border: #ffffff;
-  --card-shadow: 4px 4px 0px #ffffff;
+  --surface-glass: #1e293b;
+  --surface-glass-border: #334155;
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
   
-  --text-main: #ffffff;
-  --text-muted: #cccccc;
-  --text-subtle: #999999;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
 
-  --input-bg: #000000;
-  --input-border: #ffffff;
-  --input-focus-border: #ffffff;
-  --input-focus-glow: transparent;
+  --input-bg: #0f172a;
+  --input-border: #475569;
+  --input-focus-border: var(--primary-accent);
+  --input-focus-glow: 0 0 0 3px rgba(227, 24, 55, 0.2); /* NSS Red with opacity */
 
-  --primary-accent: #ff00ff; /* Hot pink for dark mode */
+  --primary-accent: #e31837; /* NSS Red for better contrast in dark mode */
   --primary-gradient: none;
-  --primary-hover: #e600e6;
+  --primary-hover: #d3122c;
   
-  --secondary-accent: #ccff00; /* Neon yellow */
+  --secondary-accent: #64b5f6; /* Lighter blue for dark mode */
 
   --pill-bg: #000000;
   --pill-active-bg: var(--secondary-accent);
@@ -32,30 +32,54 @@
   --toast-text: #ffffff;
 
   --badge-bg: var(--primary-accent);
-  --badge-text: #000000;
+  --badge-text: #ffffff;
 }
 
-/* Subtle Dark Mode Accents removed for brutalism */
+/* Modern Clean Dark Mode Shadows */
 [data-theme="dark"] .glass-card {
-  box-shadow: 4px 4px 0px #ffffff;
+  box-shadow: var(--card-shadow);
 }
 
 [data-theme="dark"] .top-nav {
-  background: #000000;
-  border-bottom-color: #ffffff;
+  background: rgba(30, 41, 59, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .nss-brand-text h1 {
+  background: linear-gradient(135deg, #ffffff 0%, var(--secondary-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme="dark"] .nss-brand-sub {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .wizard-header-sticky {
-  background: #000000;
-  border-color: #ffffff;
+  background: #1e293b;
+  border-color: #334155;
 }
 
 [data-theme="dark"] select option {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #1e293b;
+  color: #f8fafc;
 }
 
 [data-theme="dark"] .review-section-card {
-  background: #000000;
-  border-color: #ffffff;
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .custom-option:not(.disabled):hover {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .custom-option.selected {
+  background-color: var(--primary-accent);
+  color: #ffffff;
 }

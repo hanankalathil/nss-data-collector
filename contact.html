@@ -12,28 +12,22 @@
   <link rel="stylesheet" href="css/animation.css">
 </head>
 <body>
-  <header class="top-nav">
-    <div class="app-header-container">
-      <div class="brand-wrapper">
-        <div class="brand-logo-badge" aria-hidden="true">NSS</div>
-        <div class="nss-brand-text">
-          <h1>NSS Data Collector</h1>
-          <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
+  <main class="main-app-container" style="padding-top: 1.5rem;">
+    <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
+      
+      <!-- Unified Header Section inside Card -->
+      <div class="app-header-container card-header" style="padding: 0 0 1.5rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid var(--input-border);">
+        <div class="brand-wrapper">
+          <img src="image/nss logo.png" alt="NSS Logo" class="brand-logo-img">
+          <div class="nss-brand-text">
+            <h1>NSS Data Collector</h1>
+            <span class="nss-brand-sub">National Service Scheme • Enrolment Portal</span>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
-
-  <main class="main-app-container">
-    <section id="wizard-header" class="wizard-header-sticky" style="padding-bottom: 1rem;">
-      <div class="wizard-info-row" style="margin-bottom: 0;">
-        <h2 id="wizard-step-title" class="wizard-step-title" style="margin: 0;">Contact Details</h2>
-      </div>
-    </section>
-
-    <form id="nss-main-form" class="glass-card" novalidate autocomplete="on">
       <div class="form-step active" data-step="2">
         <div class="form-section-header">
+          <h2>Contact Details</h2>
           <p>Communication numbers and email for camp alerts and official notices.</p>
         </div>
 
